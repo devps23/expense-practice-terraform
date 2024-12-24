@@ -46,7 +46,7 @@ resource "null_resource" "null_instance" {
   provisioner "remote-exec" {
     inline = [
       "sudo pip3.11 install ansible hvac",
-      "ansible-pull -i localhost, -U https://github.com/devps23/learn-ansible.git expense.yml-e env=${var.env} -e component_name=${var.component}"
+      " ansible-pull -i localhost, -U https://github.com/devps23/expense-practice-ansible.git  expense.yml -e component_name=${var.component} -e env=${var.env}"
     ]
   }
 }
