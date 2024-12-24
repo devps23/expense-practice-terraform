@@ -16,7 +16,7 @@ module "backend" {
 }
 module "mysql" {
   source = "./modules/app"
-  component = "db"
+  component = "mysql"
   instance_type=var.instance_type
   env = var.env
   zone_id = var.zone_id
