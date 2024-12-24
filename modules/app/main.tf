@@ -4,6 +4,7 @@ resource "aws_instance" "instance" {
   instance_type = var.instance_type
   vpc_security_group_ids = [aws_security_group.security_group.id]
   subnet_id = var.subnet_id[0]
+
   instance_market_options {
     market_type = "spot"
     spot_options {
@@ -13,6 +14,8 @@ resource "aws_instance" "instance" {
   }
   tags = {
     Name = "${var.env}-${var.component}-demo"
+    monitor = "yes"
+
   }
 }
 # create a security group
