@@ -79,7 +79,7 @@ resource "aws_route_table" "frontend_route_table" {
     Name = "${var.env}-route-table-${count.index+1}"
   }
 }
-# associate route table id to subnet id
+associate route table id to subnet id
 resource "aws_route_table_association" "public-route-association" {
   count = length(var.public_subnets)
   subnet_id      = aws_subnet.public_subnets[count.index].id

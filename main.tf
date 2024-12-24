@@ -11,11 +11,36 @@ module "vpc" {
   frontend_subnets = var.frontend_subnets
   public_subnets = var.public_subnets
 }
-module "app"{
+# module "app"{
+#   source = "./modules/app"
+#   env = var.env
+#   instance_type = var.instance_type
+#   subnet_id = module.vpc.subnet
+#   vpc_id    = module.vpc.vpc_id
+# }
+module "frontend"{
   source = "./modules/app"
-  env = var.env
+  env    = var.env
   instance_type = var.instance_type
-  subnet_id = module.vpc.subnet
-  vpc_id    = module.vpc.vpc_id
-
+  subnet_id = module.frontend
+  vpc_id = module.vpc.vpc_id
+  component = "frontend"
+  vault_token = var.vault_token
+  zone_id = var.zone_id
 }
+# module "backend"{
+#   source = "./modules/app"
+#   env    = var.env
+#   instance_type = var.instance_type
+#   subnet_id = ""
+#   vpc_id = module.vpc.vpc_id
+#   component = "backend"
+# }
+# module "db"{
+#   source = "./modules/app"
+#   component = "db"
+#   env           = var.env
+#   instance_type = var.instance_type
+#   subnet_id     = ""
+#   vpc_id        = module.vpc.vpc_id
+# }
