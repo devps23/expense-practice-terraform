@@ -2,6 +2,7 @@
 resource "aws_instance" "instance" {
   ami = data.aws_ami.ami.image_id
   instance_type = var.instance_type
+  vpc_security_group_ids = [aws_security_group.security_group.id]
   instance_market_options {
     market_type = "spot"
     spot_options {
