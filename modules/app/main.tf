@@ -1,41 +1,41 @@
-# # create an instance
-# resource "aws_instance" "instance" {
-#   ami = data.aws_ami.ami.image_id
-#   instance_type = var.instance_type
-#   instance_market_options {
-#     market_type = "spot"
-#     spot_options {
-#       instance_interruption_behavior = "stop"
-#       spot_instance_type             = "persistent"
-#     }
-#   }
-#   tags = {
-#     Name = "${var.env}-${var.component}-demo"
-#     monitor = "yes"
+# create an instance
+resource "aws_instance" "instance" {
+  ami = data.aws_ami.ami.image_id
+  instance_type = var.instance_type
+  instance_market_options {
+    market_type = "spot"
+    spot_options {
+      instance_interruption_behavior = "stop"
+      spot_instance_type             = "persistent"
+    }
+  }
+  tags = {
+    Name = "${var.env}-${var.component}-demo"
+    monitor = "yes"
+
+  }
+}
+# # create a security group
+# resource "aws_security_group" "security_group" {
+#   name        = "${var.env}-sg"
+#   ingress {
+#     from_port        = 0
+#     to_port          = 0
+#     protocol         = "-1"
+#     cidr_blocks      = ["0.0.0.0/0"]
 #
 #   }
+#   egress {
+#     from_port        = 0
+#     to_port          = 0
+#     protocol         = "-1"
+#     cidr_blocks      = ["0.0.0.0/0"]
+#
+#   }
+#   tags = {
+#     Name = "${var.env}-sg"
+#   }
 # }
-# # # create a security group
-# # resource "aws_security_group" "security_group" {
-# #   name        = "${var.env}-sg"
-# #   ingress {
-# #     from_port        = 0
-# #     to_port          = 0
-# #     protocol         = "-1"
-# #     cidr_blocks      = ["0.0.0.0/0"]
-# #
-# #   }
-# #   egress {
-# #     from_port        = 0
-# #     to_port          = 0
-# #     protocol         = "-1"
-# #     cidr_blocks      = ["0.0.0.0/0"]
-# #
-# #   }
-# #   tags = {
-# #     Name = "${var.env}-sg"
-# #   }
-# # }
 resource "null_resource" "null_instance" {
   connection {
     type     = "ssh"
