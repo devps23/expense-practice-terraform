@@ -5,6 +5,7 @@ module "frontend" {
   instance_type=var.instance_type
   env = var.env
   zone_id     = var.zone_id
+  vault_token = var.vault_token
 }
 # module "backend" {
 # #   depends_on = [module.mysql]
