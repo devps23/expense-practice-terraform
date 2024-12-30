@@ -4,5 +4,5 @@ data "aws_ami" "ami" {
   owners = ["973714476881"]
 }
 data "vault_generic_secret" "my_secret" {
-  path = "common/data/common"
+  path = "common/data/vault_secrets"
 }
