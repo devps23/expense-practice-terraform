@@ -53,7 +53,7 @@ resource "null_resource" "null_instance" {
   }
 }
 resource "aws_route53_record" "record" {
-  name      = "vault-internal"
+  name      = "${var.env}-${var.component}"
   type      = "A"
   zone_id   = var.zone_id
   ttl       = 5
