@@ -50,12 +50,19 @@ resource "null_resource" "null_instance" {
     ]
   }
 }
-# resource "aws_route53_record" "record" {
-#   name      = "${var.component}-${var.env}"
-#   type      = "A"
-#   zone_id   = var.zone_id
-#   ttl       = 5
-#   records = [aws_instance.instance.private_ip]
-# }
+resource "aws_route53_record" "vault_record" {
+  name      = "${var.component}-${var.env}"
+  type      = "A"
+  zone_id   = var.zone_id
+  ttl       = 5
+  records = [aws_instance.instance.public_ip]
+}
+resource "aws_route53_record" "record" {
+  name      = "${var.component}-${var.env}"
+  type      = "A"
+  zone_id   = var.zone_id
+  ttl       = 5
+  records = [aws_instance.instance.private_ip]
+}
 
 
