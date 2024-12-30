@@ -3,6 +3,6 @@ data "aws_ami" "ami" {
   name_regex  = "RHEL-9-DevOps-Practice"
   owners = ["973714476881"]
 }
-provider "vault" {
-   address = "https://vault-internal.pdevops72.online:8200"
+data "vault_generic_secret" "my_secret" {
+  path = "common/data/common"
 }
