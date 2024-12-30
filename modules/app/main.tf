@@ -40,8 +40,8 @@ resource "aws_security_group" "security_group" {
 resource "null_resource" "null_instance" {
   connection {
     type     = "ssh"
-    user     = "ec2-user"
-    password = "DevOps321"
+    user     = jsondecode(data.vault_generic_secret.my_secret.data_json).username
+    password = jsondecode(data.vault_generic_secret.my_secret.data_json).password
     host     = aws_instance.instance.public_ip
   }
   provisioner "remote-exec" {
