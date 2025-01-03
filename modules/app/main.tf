@@ -17,6 +17,11 @@ resource "aws_instance" "instance" {
     monitor = "yes"
 
   }
+  lifecycle {
+    ignore_changes = [
+      ami
+    ]
+  }
 }
 # create a security group
 resource "aws_security_group" "security_group" {
@@ -61,5 +66,16 @@ resource "null_resource" "null_instance" {
 #   ttl       = 5
 #   records = [aws_instance.instance.public_ip]
 # }
-
-
+# create a load balancer
+resource "aws_lb" "test" {
+  count              = lb_needed ? 1 : 0
+  name               = "${var.env}-${var.component}-lb"
+  internal           = var.lb_type == "public" ? 0 : 1
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.security_group.id]
+  subnets            = var.lb_subnets
+  enable_deletion_protection = true
+   tags = {
+    Environment = "${var.env}-${var.component}-lb"
+  }
+}
