@@ -1,5 +1,5 @@
 module "frontend" {
-#   depends_on = [module.backend]
+  depends_on = [module.backend]
   source = "./modules/app"
   component = "frontend"
   instance_type=var.instance_type
@@ -8,7 +8,7 @@ module "frontend" {
   vault_token = var.vault_token
 }
 module "backend" {
-#   depends_on = [module.mysql]
+  depends_on = [module.mysql]
   source = "./modules/app"
   component = "backend"
   instance_type=var.instance_type
