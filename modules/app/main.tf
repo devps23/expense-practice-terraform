@@ -18,7 +18,7 @@ resource "aws_instance" "instance" {
 }
 # create a security group
 resource "aws_security_group" "security_group" {
-  name        = "${var.env}-sg"
+  name        = "${var.env}-nsg"
   ingress {
     from_port        = 0
     to_port          = 0
@@ -34,7 +34,7 @@ resource "aws_security_group" "security_group" {
 
   }
   tags = {
-    Name = "${var.env}-sg"
+    Name = "${var.env}-nsg"
   }
 }
 # resource "null_resource" "null_instance" {
