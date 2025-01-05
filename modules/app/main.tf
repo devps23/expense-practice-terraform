@@ -53,19 +53,19 @@ resource "aws_security_group" "security_group" {
 #     ]
 #   }
 # }
-resource "aws_route53_record" "record" {
-  name      = "${var.env}-${var.component}"
-  type      = "A"
-  zone_id   = var.zone_id
-  ttl       = 5
-  records = [aws_instance.instance.public_ip]
-}
 # resource "aws_route53_record" "record" {
-#   name      = "${var.component}-${var.env}"
+#   name      = "${var.env}-${var.component}"
 #   type      = "A"
 #   zone_id   = var.zone_id
 #   ttl       = 5
-#   records = [aws_instance.instance.private_ip]
+#   records = [aws_instance.instance.public_ip]
 # }
+resource "aws_route53_record" "record" {
+  name      = "${var.component}-${var.env}"
+  type      = "A"
+  zone_id   = var.zone_id
+  ttl       = 5
+  records = [aws_instance.instance.private_ip]
+}
 
 
