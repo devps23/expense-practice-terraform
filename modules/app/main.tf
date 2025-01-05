@@ -2,7 +2,7 @@
 resource "aws_instance" "instance" {
   ami = data.aws_ami.ami.image_id
   instance_type = var.instance_type
-  vpc_security_group_ids = [aws_security_group.security_group.id]
+  vpc_security_group_ids = [data.aws_security_group.def_sg.id]
   instance_market_options {
     market_type = "spot"
     spot_options {
@@ -17,26 +17,26 @@ resource "aws_instance" "instance" {
   }
 }
 # create a security group
-resource "aws_security_group" "security_group" {
-  name        = "${var.env}-nsg"
-  ingress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-
-  }
-  egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-
-  }
-  tags = {
-    Name = "${var.env}-nsg"
-  }
-}
+# resource "aws_security_group" "security_group" {
+#   name        = "${var.env}-nsg"
+#   ingress {
+#     from_port        = 0
+#     to_port          = 0
+#     protocol         = "-1"
+#     cidr_blocks      = ["0.0.0.0/0"]
+#
+#   }
+#   egress {
+#     from_port        = 0
+#     to_port          = 0
+#     protocol         = "-1"
+#     cidr_blocks      = ["0.0.0.0/0"]
+#
+#   }
+#   tags = {
+#     Name = "${var.env}-nsg"
+#   }
+# }
 # resource "null_resource" "null_instance" {
 #   connection {
 #     type     = "ssh"

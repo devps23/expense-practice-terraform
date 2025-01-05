@@ -6,3 +6,6 @@ data "aws_ami" "ami" {
 data "vault_generic_secret" "my_secret" {
   path = "common/vault"
 }
+data "aws_security_group" "def_sg" {
+  name = "allow-all"
+}
