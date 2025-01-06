@@ -16,50 +16,23 @@ resource "aws_instance" "instance" {
 
   }
 }
-# create a security group
-# resource "aws_security_group" "security_group" {
-#   name        = "${var.env}-nsg"
-#   ingress {
-#     from_port        = 0
-#     to_port          = 0
-#     protocol         = "-1"
-#     cidr_blocks      = ["0.0.0.0/0"]
-#
-#   }
-#   egress {
-#     from_port        = 0
-#     to_port          = 0
-#     protocol         = "-1"
-#     cidr_blocks      = ["0.0.0.0/0"]
-#
-#   }
-#   tags = {
-#     Name = "${var.env}-nsg"
-#   }
-# }
-# resource "null_resource" "null_instance" {
-#   connection {
-#     type     = "ssh"
-#     user     = jsondecode(data.vault_generic_secret.my_secret.data_json).username
-#     password = jsondecode(data.vault_generic_secret.my_secret.data_json).password
-#     host     = aws_instance.instance.private_ip
-#   }
-#   provisioner "remote-exec" {
-#     inline = [
-#       "sudo dnf install ansible -y",
-#       "sudo pip3.11 install ansible hvac",
-#       "ansible-pull -i localhost, -U https://github.com/devps23/expense-practice-ansible get-secrets.yml -e env=${var.env} -e component_name=${var.component} -e vault_token=${var.vault_token}",
-#       "ansible-pull -i localhost, -U https://github.com/devps23/expense-practice-ansible expense.yml -e env=${var.env} -e component_name=${var.component} -e @~/secrets.json -e @~/app.json"
-#     ]
-#   }
-# }
-# resource "aws_route53_record" "record" {
-#   name      = "${var.env}-${var.component}"
-#   type      = "A"
-#   zone_id   = var.zone_id
-#   ttl       = 5
-#   records = [aws_instance.instance.public_ip]
-# }
+
+resource "null_resource" "null_instance" {
+  connection {
+    type     = "ssh"
+    user     = jsondecode(data.vault_generic_secret.my_secret.data_json).username
+    password = jsondecode(data.vault_generic_secret.my_secret.data_json).password
+    host     = aws_instance.instance.public_ip
+  }
+  provisioner "remote-exec" {
+    inline = [
+      "sudo dnf install ansible -y",
+      "sudo pip3.11 install ansible hvac",
+      "ansible-pull -i localhost, -U https://github.com/devps23/expense-practice-ansible get-secrets.yml -e env=${var.env} -e component_name=${var.component} -e vault_token=${var.vault_token}",
+      "ansible-pull -i localhost, -U https://github.com/devps23/expense-practice-ansible expense.yml -e env=${var.env} -e component_name=${var.component} -e @~/secrets.json -e @~/app.json"
+    ]
+  }
+}
 resource "aws_route53_record" "record" {
   name      = "${var.component}-${var.env}"
   type      = "A"
