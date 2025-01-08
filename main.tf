@@ -28,8 +28,8 @@ module "rds"{
   source = "./modules/rds"
   component = "rds"
   env = var.env
-  instance_type = var.instance_type
-  vault_token = var.vault_token
-  zone_id = var.zone_id
+#   instance_type = var.instance_type
+#   vault_token = var.vault_token
+#   zone_id = var.zone_id
 #   app_port = 3306
 }
