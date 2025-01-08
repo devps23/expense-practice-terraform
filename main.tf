@@ -26,7 +26,7 @@
 # }
 module "rds"{
   source = "./modules/rds"
-  component = "rds"
+#   component = "rds"
 #   env = var.env
 #   instance_type = var.instance_type
 #   vault_token = var.vault_token
