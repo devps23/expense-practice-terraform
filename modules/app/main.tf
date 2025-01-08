@@ -23,6 +23,7 @@ resource "null_resource" "null_instance" {
     user     = jsondecode(data.vault_generic_secret.my_secret.data_json).username
     password = jsondecode(data.vault_generic_secret.my_secret.data_json).password
     host     = aws_instance.instance.public_ip
+    port     = 22
   }
   provisioner "remote-exec" {
     inline = [
