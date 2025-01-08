@@ -8,7 +8,7 @@ resource "aws_db_instance" "rds" {
   password             = "ExpenseApp123"
   parameter_group_name = "default.mysql8.0"
   skip_final_snapshot  = true
-  component = "rds"
+#   component = "rds"
 }
 resource "aws_db_parameter_group" "default" {
   name   = "rds-pg"
